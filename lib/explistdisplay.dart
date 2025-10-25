@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'dart:math'; // Import for random number generation
+import 'dart:math'; 
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:testing/api_connection.dart';
@@ -10,8 +10,8 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 
 class ExperimentListDisplay extends StatefulWidget {
-  final String data; // Final variable to store the passed data
-  final int dataClass; // Final variable to store the passed data
+  final String data; 
+  final int dataClass; 
   final String classId;
   final String subjectName;
 
@@ -24,9 +24,8 @@ class ExperimentListDisplay extends StatefulWidget {
 
 class _ExperimentListDisplayState extends State<ExperimentListDisplay> {
   late Future<List<Map<String, dynamic>>> _experiments;
-  List<Map<String, dynamic>> _filteredExperiments = []; // For filtered experiments
+  List<Map<String, dynamic>> _filteredExperiments = []; 
 
-  // Fetch data function
   Future<List<Map<String, dynamic>>> fetchExperimentName(String subjectID, String classId) async {
     print("subjectID " + subjectID);
     print("classId " + classId);
@@ -36,16 +35,14 @@ class _ExperimentListDisplayState extends State<ExperimentListDisplay> {
     };
 
     try {
-      // Adjust this URL to the correct endpoint
       final response = await http.post(
-        Uri.parse(API.getExperimentNames), // Replace with your actual API URL
+        Uri.parse(API.getExperimentNames), 
         body: jsonEncode(body),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
       );
 
-      // Checking the response
       if (response.statusCode == 200) {
         List<dynamic> data = jsonDecode(response.body);
         return data.map((e) => e as Map<String, dynamic>).toList();
@@ -65,7 +62,7 @@ class _ExperimentListDisplayState extends State<ExperimentListDisplay> {
     _experiments = fetchExperimentName(widget.dataClass.toString(), widget.classId);
     _experiments.then((value) {
       setState(() {
-        _filteredExperiments = value; // Initialize filtered list
+        _filteredExperiments = value; 
       });
     });
   }
@@ -119,7 +116,6 @@ class _ExperimentListDisplayState extends State<ExperimentListDisplay> {
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
           children: [
-            // Search bar at the top
             Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
               child: TextField(
@@ -131,11 +127,10 @@ class _ExperimentListDisplayState extends State<ExperimentListDisplay> {
                   ),
                 ),
                 onChanged: (value) {
-                  _filterExperiments(value); // Call filter method on input change
+                  _filterExperiments(value); 
                 },
               ),
             ),
-            // FutureBuilder and ListView
             Expanded(
               child: FutureBuilder<List<Map<String, dynamic>>>(
                 future: _experiments,
