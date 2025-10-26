@@ -9,8 +9,8 @@
 
 1. **Clone the repository**
 ```bash
-   git clone <repository-url>
-   cd <project-directory>
+   git clone https://github.com/JohanR7/Olabs_mobile_app.git
+   cd Olabs_mobile_app
 ```
 
 2. **Install dependencies**
